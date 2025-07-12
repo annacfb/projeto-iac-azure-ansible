@@ -1,0 +1,2 @@
+[windows]
+20.228.123.45 ansible_user=annaUnyleya ansible_password=Annaunyleya25 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore ansible_port=5986

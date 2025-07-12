@@ -1,0 +1,25 @@
+- name: Instalar e configurar o IIS no servidor Windows
+  hosts: windows
+  gather_facts: no
+  tasks:
+
+    - name: Instalar o serviço IIS
+      win_feature:
+        name: Web-Server
+        state: present
+      register: iis_status
+
+    - name: Reiniciar o serviço IIS
+      win_service:
+        name: W3SVC
+        state: restarted
+      when: iis_status.changed
+
+    - name: Criar uma página personalizada
+      win_copy:
+        content: "<h1>IIS configurado via Ansible com sucesso!</h1>"
+        dest: "C:\\inetpub\\wwwroot\\index.html"
+
+    - name: Exibir mensagem final
+      debug:
+        msg: "IIS instalado e página inicial atualizada."
